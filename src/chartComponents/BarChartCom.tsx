@@ -21,9 +21,8 @@ const BarChartCom = ({bardata}:DrillDataTypeProp) => {
       am5xy.XYChart.new(root, {
         panX: true,
         panY: true,
-        wheelX: "panX",
-        wheelY: "zoomX",
-        pinchZoomX: true,
+        wheelX: "none",
+        wheelY: "none",
         paddingLeft: 0,
         paddingRight: 1,
       })
@@ -32,6 +31,7 @@ const BarChartCom = ({bardata}:DrillDataTypeProp) => {
 
     const cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
     cursor.lineY.set("visible", false);
+    cursor.lineX.set("visible",false);
 
     const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30, minorGridEnabled: true });
     xRenderer.labels.template.setAll({
@@ -47,22 +47,22 @@ const BarChartCom = ({bardata}:DrillDataTypeProp) => {
         maxDeviation: 0.3,
         categoryField: "category",
         renderer: xRenderer,
-        tooltip: am5.Tooltip.new(root, {}),
+        // tooltip: am5.Tooltip.new(root, {}),
       })
     );
 
-    const yRenderer = am5xy.AxisRendererY.new(root, { strokeOpacity: 0.1 });
+    const yRenderer = am5xy.AxisRendererY.new(root, { strokeOpacity: 0.1,interactive : true });
     const yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, { maxDeviation: 0.3, renderer: yRenderer }));
 
     const series = chart.series.push(
       am5xy.ColumnSeries.new(root, {
-        name: "Series 1",
+        name: "items",
         xAxis: xAxis,
         yAxis: yAxis,
         valueYField: "value",
         categoryXField: "category",
         sequencedInterpolation: true,
-        tooltip: am5.Tooltip.new(root, { labelText: "{valueY}" }),
+        tooltip: am5.Tooltip.new(root, { labelText: "{categoryX} : {valueY}" }),
       })
     );
 
@@ -70,6 +70,7 @@ const BarChartCom = ({bardata}:DrillDataTypeProp) => {
       cornerRadiusTL: 5,
       cornerRadiusTR: 5,
       strokeOpacity: 0,
+      // width : 25
     });
 
     series.columns.template.adapters.add("fill", function (fill, target) {
@@ -87,10 +88,11 @@ const BarChartCom = ({bardata}:DrillDataTypeProp) => {
     series.appear(1000);
     chart.appear(1000, 100);
 
+    
     return () => root.dispose();
   }, []);
 
-  return <div ref={chartRef} style={{ width: "100%", height: "400px" }} />;
+  return <div ref={chartRef} className="w-full h-full" />;
 };
 
 export default BarChartCom;
