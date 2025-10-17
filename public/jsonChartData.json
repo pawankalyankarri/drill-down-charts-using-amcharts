@@ -3,26 +3,212 @@
     "category": "Fruits",
     "value": 60,
     "children": [
-      { "category": "Apples", "value": 25 },
-      { "category": "Oranges", "value": 20 },
-      { "category": "Bananas", "value": 15 }
+      {
+        "category": "Apples",
+        "value": 25,
+        "children": [
+          {
+            "category": "Red Apples",
+            "value": 15,
+            "children": [
+              {
+                "category": "Kashmir Apples",
+                "value": 10,
+                "children": [
+                  { "category": "Organic Kashmir Apples", "value": 5 },
+                  { "category": "Export Quality Apples", "value": 5 }
+                ]
+              },
+              {
+                "category": "Fuji Apples",
+                "value": 5,
+                "children": [
+                  { "category": "Small Fuji", "value": 2 },
+                  { "category": "Large Fuji", "value": 3 }
+                ]
+              }
+            ]
+          },
+          {
+            "category": "Green Apples",
+            "value": 10,
+            "children": [
+              {
+                "category": "Australian Green Apples",
+                "value": 6,
+                "children": [
+                  { "category": "Premium Batch", "value": 3 },
+                  { "category": "Standard Batch", "value": 3 }
+                ]
+              },
+              {
+                "category": "Local Green Apples",
+                "value": 4,
+                "children": [
+                  { "category": "Farm Fresh", "value": 2 },
+                  { "category": "Market Stock", "value": 2 }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Oranges",
+        "value": 20,
+        "children": [
+          {
+            "category": "Nagpur Oranges",
+            "value": 12,
+            "children": [
+              {
+                "category": "Winter Season Batch",
+                "value": 6,
+                "children": [
+                  { "category": "Early Harvest", "value": 3 },
+                  { "category": "Late Harvest", "value": 3 }
+                ]
+              },
+              {
+                "category": "Summer Season Batch",
+                "value": 6,
+                "children": [
+                  { "category": "Juicy", "value": 4 },
+                  { "category": "Dry", "value": 2 }
+                ]
+              }
+            ]
+          },
+          {
+            "category": "Mandarin Oranges",
+            "value": 8,
+            "children": [
+              {
+                "category": "Imported",
+                "value": 4,
+                "children": [
+                  { "category": "Spain", "value": 2 },
+                  { "category": "USA", "value": 2 }
+                ]
+              },
+              {
+                "category": "Local",
+                "value": 4,
+                "children": [
+                  { "category": "Farm A", "value": 2 },
+                  { "category": "Farm B", "value": 2 }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Bananas",
+        "value": 15,
+        "children": [
+          {
+            "category": "Cavendish Bananas",
+            "value": 8,
+            "children": [
+              {
+                "category": "Ripened",
+                "value": 4,
+                "children": [
+                  { "category": "Yellow Bananas", "value": 2 },
+                  { "category": "Brown Bananas", "value": 2 }
+                ]
+              },
+              {
+                "category": "Raw",
+                "value": 4,
+                "children": [
+                  { "category": "Green Bananas", "value": 3 },
+                  { "category": "Light Green", "value": 1 }
+                ]
+              }
+            ]
+          },
+          {
+            "category": "Red Bananas",
+            "value": 7,
+            "children": [
+              {
+                "category": "Kerala Red Bananas",
+                "value": 4,
+                "children": [
+                  { "category": "Premium", "value": 2 },
+                  { "category": "Regular", "value": 2 }
+                ]
+              },
+              {
+                "category": "Imported Red Bananas",
+                "value": 3,
+                "children": [
+                  { "category": "Thailand", "value": 2 },
+                  { "category": "Sri Lanka", "value": 1 }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     ]
   },
   {
     "category": "Vegetables",
     "value": 40,
     "children": [
-      { "category": "Tomatoes", "value": 15 },
-      { "category": "Potatoes", "value": 15 },
-      { "category": "Cucumbers", "value": 10 }
-    ]
-  },
-  {
-    "category": "Grains",
-    "value": 30,
-    "children": [
-      { "category": "Rice", "value": 20 },
-      { "category": "Wheat", "value": 10 }
+      {
+        "category": "Tomatoes",
+        "value": 15,
+        "children": [
+          {
+            "category": "Cherry Tomatoes",
+            "value": 7,
+            "children": [
+              {
+                "category": "Organic Cherry Tomatoes",
+                "value": 4,
+                "children": [
+                  { "category": "Greenhouse Batch", "value": 2 },
+                  { "category": "Outdoor Batch", "value": 2 }
+                ]
+              },
+              {
+                "category": "Hybrid Cherry Tomatoes",
+                "value": 3,
+                "children": [
+                  { "category": "Seed A", "value": 1 },
+                  { "category": "Seed B", "value": 2 }
+                ]
+              }
+            ]
+          },
+          {
+            "category": "Regular Tomatoes",
+            "value": 8,
+            "children": [
+              {
+                "category": "Desi Variety",
+                "value": 5,
+                "children": [
+                  { "category": "Local Market", "value": 3 },
+                  { "category": "Export Market", "value": 2 }
+                ]
+              },
+              {
+                "category": "Hybrid Variety",
+                "value": 3,
+                "children": [
+                  { "category": "Greenhouse", "value": 2 },
+                  { "category": "Outdoor", "value": 1 }
+                ]
+              }
+            ]
+          }
+        ]
+      }
     ]
   }
 ]

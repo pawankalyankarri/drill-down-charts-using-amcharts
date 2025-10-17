@@ -8,7 +8,7 @@ function App() {
   const data = barData as DrillDataType[]
   return <div className="w-full h-full grid">
     {/* <div className="w-full h-full"><BarChartPage/></div> */}
-    <div><Outlet/></div>
+    <div className="w-full h-full"><Outlet/></div>
     {/* <div className="w-[300px] h-[400px]"><BarChartCom bardata = {data}/></div> */}
   </div>;
 }
