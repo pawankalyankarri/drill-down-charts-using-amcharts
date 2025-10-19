@@ -208,6 +208,170 @@
             ]
           }
         ]
+      },
+      {
+        "category": "Potatoes",
+        "value": 10,
+        "children": [
+          {
+            "category": "Sweet Potatoes",
+            "value": 5,
+            "children": [
+              { "category": "Organic Sweet", "value": 3 },
+              { "category": "Hybrid Sweet", "value": 2 }
+            ]
+          },
+          {
+            "category": "Normal Potatoes",
+            "value": 5,
+            "children": [
+              { "category": "Local Farm", "value": 3 },
+              { "category": "Industrial Use", "value": 2 }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Onions",
+        "value": 8,
+        "children": [
+          {
+            "category": "Red Onions",
+            "value": 4,
+            "children": [
+              { "category": "Nashik", "value": 2 },
+              { "category": "Karnataka", "value": 2 }
+            ]
+          },
+          {
+            "category": "White Onions",
+            "value": 4,
+            "children": [
+              { "category": "Local", "value": 2 },
+              { "category": "Export", "value": 2 }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Grains",
+    "value": 50,
+    "children": [
+      {
+        "category": "Rice",
+        "value": 25,
+        "children": [
+          { "category": "Basmati", "value": 15 },
+          { "category": "Sona Masoori", "value": 10 }
+        ]
+      },
+      {
+        "category": "Wheat",
+        "value": 15,
+        "children": [
+          { "category": "Durum Wheat", "value": 8 },
+          { "category": "Soft Wheat", "value": 7 }
+        ]
+      },
+      {
+        "category": "Millets",
+        "value": 10,
+        "children": [
+          { "category": "Foxtail Millet", "value": 5 },
+          { "category": "Pearl Millet", "value": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Dairy",
+    "value": 30,
+    "children": [
+      {
+        "category": "Milk",
+        "value": 12,
+        "children": [
+          { "category": "Cow Milk", "value": 6 },
+          { "category": "Buffalo Milk", "value": 6 }
+        ]
+      },
+      {
+        "category": "Cheese",
+        "value": 10,
+        "children": [
+          { "category": "Mozzarella", "value": 5 },
+          { "category": "Cheddar", "value": 5 }
+        ]
+      },
+      {
+        "category": "Yogurt",
+        "value": 8,
+        "children": [
+          { "category": "Plain Yogurt", "value": 4 },
+          { "category": "Flavored Yogurt", "value": 4 }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Snacks",
+    "value": 35,
+    "children": [
+      {
+        "category": "Chips",
+        "value": 15,
+        "children": [
+          { "category": "Potato Chips", "value": 8 },
+          { "category": "Banana Chips", "value": 7 }
+        ]
+      },
+      {
+        "category": "Biscuits",
+        "value": 10,
+        "children": [
+          { "category": "Cream Biscuits", "value": 5 },
+          { "category": "Digestive Biscuits", "value": 5 }
+        ]
+      },
+      {
+        "category": "Namkeen",
+        "value": 10,
+        "children": [
+          { "category": "Mixture", "value": 5 },
+          { "category": "Boondi", "value": 5 }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "Beverages",
+    "value": 25,
+    "children": [
+      {
+        "category": "Soft Drinks",
+        "value": 10,
+        "children": [
+          { "category": "Cola", "value": 5 },
+          { "category": "Orange", "value": 5 }
+        ]
+      },
+      {
+        "category": "Juices",
+        "value": 10,
+        "children": [
+          { "category": "Mango Juice", "value": 5 },
+          { "category": "Apple Juice", "value": 5 }
+        ]
+      },
+      {
+        "category": "Energy Drinks",
+        "value": 5,
+        "children": [
+          { "category": "Sports Energy", "value": 3 },
+          { "category": "Caffeine Boost", "value": 2 }
+        ]
       }
     ]
   }
