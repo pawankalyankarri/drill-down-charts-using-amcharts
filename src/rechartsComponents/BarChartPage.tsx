@@ -17,7 +17,7 @@ const BarChartPage = () => {
   // const chartData = barData as DrillDataType[];
   const [chartData, setChartData] = useState<DrillDataType[]>([]);
   const mountRef = useRef<boolean>(false);
-  const [prevCategory,setPrevCategory] = useState<string>("")
+  const [prevData, setPrevData] = useState<DrillDataType[][]>([]);
   useEffect(() => {
     if (mountRef.current) return;
     mountRef.current = true;
@@ -28,29 +28,33 @@ const BarChartPage = () => {
   }, []);
   const navigate = useNavigate();
 
-  const findMatchObj = (data:DrillDataType[],category:string):DrillDataType|null => {
-    console.log(category,data)
-    if(data.length === 0) return null;
-    for(let item of data){
-      if(item.category === category) return item;
-      if(item.children){
-        const obj : DrillDataType|null = findMatchObj(item.children,category)
-        if(obj) return obj;
+  const findMatchObj = (
+    data: DrillDataType[],
+    category: string
+  ): DrillDataType | null => {
+    console.log(category, data);
+    if (data.length === 0) return null;
+    for (let item of data) {
+      if (item.category === category) return item;
+      if (item.children) {
+        const obj: DrillDataType | null = findMatchObj(item.children, category);
+        if (obj) return obj;
       }
     }
-    return null
-  }
+    return null;
+  };
 
   const handleClick = (data: any) => {
     console.log("data", data.children);
-    console.log('data.category',data.category)
-    setPrevCategory(data.category)
+    console.log("data.category", data.category);
     axios
       .get("/jsonChartData.json")
       .then((res) => {
-        const singleData = findMatchObj(res.data,data.category)
-        if (singleData?.children) setChartData(singleData.children);
-        else setChartData(res.data)
+        const singleData = findMatchObj(res.data, data.category);
+        if (singleData?.children) {
+          setPrevData((prev) => [...prev, chartData]);
+          setChartData(singleData.children);
+        } else setChartData(res.data);
       })
       .catch((err) => console.log(err));
 
@@ -60,29 +64,36 @@ const BarChartPage = () => {
     // setChartData(singleData[0].children|| [])    // setting that selected field to chartdata
   };
 
-  function handleBack(data: DrillDataType[]) {
-    console.log(data)
-    console.log('prevcategory',prevCategory)
-    const previousData = findMatchObj(data,prevCategory)
-    console.log('prevdata',previousData)
+  function handleBack() {
+    if(prevData.length === 0) return;
+    console.log("prevcategory", prevData);
+    setChartData(prevData[prevData.length - 1]);
+
+    setPrevData(prevData.slice(0, -1));
   }
   // console.log(chartData)
   return (
     <div className="w-full h-screen flex justify-around items-center flex-col">
       <div className="">
-        <Button onClick={() => handleBack(chartData)}>Back</Button>
+        <Button onClick={handleBack}>Back</Button>
       </div>
-      <div className="w-[25%] h-[300px] ">
+      <div className="w-[35%] h-[300px] ">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData}>
-            <XAxis dataKey="category" />
+            <XAxis dataKey="category" fontSize={12} />
             <YAxis />
-            <Tooltip />
+            <Tooltip  />
             <Bar
               dataKey="value"
               fill="#8884d8"
-              activeBar={false}
+              isAnimationActive = {false}
               onClick={handleClick}
+              className="cursor-pointer"
+              maxBarSize={40}
+              radius={[6, 6, 0, 0]}
+              
+              
+
             />
           </BarChart>
         </ResponsiveContainer>
