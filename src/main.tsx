@@ -3,8 +3,9 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.tsx'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import BarChartPage from './rechartsComponents/BarChartPage.tsx'
 import SecondLevelBarChart from './rechartsComponents/SecondLevelBarChart.tsx'
+import BarChartCom from './chartComponents/BarChartCom.tsx'
+import BarChartPage from './rechartsComponents/BarChartPage.tsx'
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         path : "",
         element : <BarChartPage/>
+      },
+      {
+        path : "am",
+        element : <BarChartCom/>
       },
       {
         path : "secondbarchart",
