@@ -1,21 +1,61 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import type { DrillDataType } from "./ChartData";
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import type { DrillDataType } from "@/chartComponents/ChartData";
 
-interface DrillDataTypeProp {
-    bardata : DrillDataType[]
-}
-const BarChartCom = ({bardata}:DrillDataTypeProp) => {
+const BarChartCom = () => {
   const chartRef = useRef<HTMLDivElement>(null);
+  const rootRef = useRef<am5.Root | null>(null);
+  const [chartData, setChartData] = useState<DrillDataType[]>([]);
+  const [prevData, setPrevData] = useState<DrillDataType[][]>([]);
+  const [backCatArray, setBackCatArray] = useState<string[]>([]);
+
+  // Load data once
+  useEffect(() => {
+    axios
+      .get("/jsonChartData.json")
+      .then((res) => setChartData(res.data))
+      .catch((err) => console.log(err));
+  }, []);
+
+  // Helper: find category and its children recursively
+  const findMatchObj = (
+    data: DrillDataType[],
+    category: string
+  ): DrillDataType | null => {
+    for (let item of data) {
+      if (item.category === category) return item;
+      if (item.children) {
+        const found = findMatchObj(item.children, category);
+        if (found) return found;
+      }
+    }
+    return null;
+  };
+
+  // Go back to previous level
+  const handleBack = () => {
+    if (prevData.length === 0) return;
+    setChartData(prevData[prevData.length - 1]);
+    setPrevData(prevData.slice(0, -1));
+    setBackCatArray(backCatArray.slice(0, -1));
+  };
 
   useLayoutEffect(() => {
-    if (!chartRef.current) return;
+    if (!chartRef.current || chartData.length === 0) return;
+
+    if (rootRef.current) {
+      rootRef.current.dispose();
+    }
 
     const root = am5.Root.new(chartRef.current);
-    
+    rootRef.current = root;
+
     root.setThemes([am5themes_Animated.new(root)]);
+    root._logo?.dispose(); // for removing amcharts logo
 
     const chart = root.container.children.push(
       am5xy.XYChart.new(root, {
@@ -27,72 +67,113 @@ const BarChartCom = ({bardata}:DrillDataTypeProp) => {
         paddingRight: 1,
       })
     );
-    root._logo?.dispose()  // for removing the logo
 
     const cursor = chart.set("cursor", am5xy.XYCursor.new(root, {}));
     cursor.lineY.set("visible", false);
-    cursor.lineX.set("visible",false);
+    cursor.lineX.set("visible", false);
 
-    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30, minorGridEnabled: true });
+    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
     xRenderer.labels.template.setAll({
-      rotation: -90,
+      rotation: -60,
+      fontSize: 12,
       centerY: am5.p50,
       centerX: am5.p100,
       paddingRight: 15,
     });
-    xRenderer.grid.template.setAll({ location: 1 });
 
     const xAxis = chart.xAxes.push(
       am5xy.CategoryAxis.new(root, {
-        maxDeviation: 0.3,
         categoryField: "category",
         renderer: xRenderer,
-        // tooltip: am5.Tooltip.new(root, {}),
       })
     );
 
-    const yRenderer = am5xy.AxisRendererY.new(root, { strokeOpacity: 0.1,interactive : true });
-    const yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, { maxDeviation: 0.3, renderer: yRenderer }));
+    xRenderer.grid.template.setAll({
+      visible: false, 
+    });
+
+    const yRenderer = am5xy.AxisRendererY.new(root, { strokeOpacity: 1 });
+    const yAxis = chart.yAxes.push(
+      am5xy.ValueAxis.new(root, { renderer: yRenderer })
+    );
+
+    yRenderer.grid.template.setAll({
+      visible: false,
+    });
 
     const series = chart.series.push(
       am5xy.ColumnSeries.new(root, {
-        name: "items",
-        xAxis: xAxis,
-        yAxis: yAxis,
+        name: "Values",
+        xAxis,
+        yAxis,
+
         valueYField: "value",
         categoryXField: "category",
-        sequencedInterpolation: true,
-        tooltip: am5.Tooltip.new(root, { labelText: "{categoryX} : {valueY}" }),
+        tooltip: am5.Tooltip.new(root, { labelText: "{categoryX}: {valueY}" }),
       })
     );
 
     series.columns.template.setAll({
-      cornerRadiusTL: 5,
-      cornerRadiusTR: 5,
-      strokeOpacity: 0,
-      // width : 25
+      cornerRadiusTL: 6,
+      cornerRadiusTR: 6,
+      strokeOpacity: 1,
+      cursorOverStyle: "pointer",
+      width: 25,
     });
 
-    series.columns.template.adapters.add("fill", function (fill, target) {
+    series.columns.template.adapters.add("fill", (fill, target) => {
       return chart.get("colors")!.getIndex(series.columns.indexOf(target));
     });
 
-    series.columns.template.adapters.add("stroke", function (stroke, target) {
-      return chart.get("colors")!.getIndex(series.columns.indexOf(target));
+    series.columns.template.events.on("click", (ev) => {
+      const dataItem = ev.target.dataItem;
+      const dataContext = dataItem?.dataContext as {
+        category?: string;
+        value?: number;
+      };
+      const category = dataContext?.category;
+      if (!category) return;
+
+      axios.get("/jsonChartData.json").then((res) => {
+        const matched = findMatchObj(res.data, category);
+        if (matched?.children) {
+          setPrevData((prev) => [...prev, chartData]);
+          setChartData(matched.children);
+          setBackCatArray((prev) => [...prev, category]);
+        } else {
+          setChartData(res.data);
+          setPrevData([]);
+          setBackCatArray([]);
+        }
+      });
     });
 
-
-    xAxis.data.setAll(bardata);
-    series.data.setAll(bardata);
+    xAxis.data.setAll(chartData);
+    series.data.setAll(chartData);
 
     series.appear(1000);
     chart.appear(1000, 100);
 
-    
     return () => root.dispose();
-  }, []);
+  }, [chartData]);
 
-  return <div ref={chartRef} className="w-full h-full" />;
+  return (
+    <div className="w-full h-screen flex flex-col justify-center items-center">
+      <div className="flex flex-col items-center mb-4">
+        <Button onClick={handleBack} disabled={prevData.length === 0}>
+          Back
+        </Button>
+        <div className="flex gap-3 mt-2">
+          {backCatArray.map((cat, idx) => (
+            <span key={idx} className="text-sm text-blue-600 cursor-pointer">
+              {cat}
+            </span>
+          ))}
+        </div>
+      </div>
+      <div ref={chartRef} className="w-[30%] h-[400px]" />
+    </div>
+  );
 };
 
 export default BarChartCom;

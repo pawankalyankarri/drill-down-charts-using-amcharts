@@ -9,6 +9,7 @@ import {
   XAxis,
   YAxis,
   Tooltip,
+  LabelList,
 } from "recharts";
 
 const BarChartPage = () => {
@@ -66,17 +67,17 @@ const BarChartPage = () => {
     if (prevData.length === 0) return;
     console.log("prevcategory", prevData);
     setChartData(prevData[prevData.length - 1]);
-
+    setBackCatArray(backCatArray.slice(0,-1))
     setPrevData(prevData.slice(0, -1));
   }
   // console.log(chartData)
   return (
     <div className="w-full h-screen flex justify-around items-center flex-col">
       <div className=" w-full flex justify-center items-center flex-col ">
-        <Button onClick={handleBack}>Back</Button>
+        <Button onClick={handleBack} className="cursor-pointer">Back</Button>
         <div className="flex gap-5 p-5">
           {backCatArray.map((item, idx) => {
-            return <span key={idx}  className="cursor-pointer">{item}</span>;
+            return <span key={idx}   className="cursor-pointer">{item}</span>;
           })}
         </div>
       </div>
@@ -94,7 +95,9 @@ const BarChartPage = () => {
               className="cursor-pointer"
               maxBarSize={40}
               radius={[6, 6, 0, 0]}
-            />
+            >
+              <LabelList dataKey="value" position="top" fontSize={12} />
+            </Bar>
           </BarChart>
         </ResponsiveContainer>
       </div>
