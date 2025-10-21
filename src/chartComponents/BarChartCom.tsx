@@ -13,7 +13,6 @@ const BarChartCom = () => {
   const [prevData, setPrevData] = useState<DrillDataType[][]>([]);
   const [backCatArray, setBackCatArray] = useState<string[]>([]);
 
-  // Load data once
   useEffect(() => {
     axios
       .get("/jsonChartData.json")
@@ -21,7 +20,6 @@ const BarChartCom = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // Helper: find category and its children recursively
   const findMatchObj = (
     data: DrillDataType[],
     category: string
