@@ -36,7 +36,7 @@ const BarChartCom = () => {
     return null;
   };
 
-  // Go back to previous level
+  // back to previous data
   const handleBack = () => {
     if (prevData.length === 0) return;
     setChartData(prevData[prevData.length - 1]);
@@ -59,10 +59,10 @@ const BarChartCom = () => {
 
     const chart = root.container.children.push(
       am5xy.XYChart.new(root, {
-        panX: true,
-        panY: true,
-        wheelX: "none",
-        wheelY: "none",
+        // panX: true,
+        // panY: true,
+        // wheelX: "none",
+        // wheelY: "none",
         paddingLeft: 0,
         paddingRight: 1,
       })
@@ -88,18 +88,18 @@ const BarChartCom = () => {
       })
     );
 
-    xRenderer.grid.template.setAll({
-      visible: false, 
-    });
+    // xRenderer.grid.template.setAll({
+    //   visible: false, 
+    // });
 
-    const yRenderer = am5xy.AxisRendererY.new(root, { strokeOpacity: 1 });
+    const yRenderer = am5xy.AxisRendererY.new(root, { strokeOpacity: 0.1 });
     const yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, { renderer: yRenderer })
     );
 
-    yRenderer.grid.template.setAll({
-      visible: false,
-    });
+    // yRenderer.grid.template.setAll({
+    //   visible: false,
+    // });
 
     const series = chart.series.push(
       am5xy.ColumnSeries.new(root, {

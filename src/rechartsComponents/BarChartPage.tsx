@@ -74,14 +74,16 @@ const BarChartPage = () => {
   return (
     <div className="w-full h-screen flex justify-around items-center flex-col">
       <div className=" w-full flex justify-center items-center flex-col ">
-        <Button onClick={handleBack} className="cursor-pointer">Back</Button>
+        
+        <Button onClick={handleBack} className="cursor-pointer" disabled = {backCatArray.length === 0}>Back</Button>
+        <span ></span>
         <div className="flex gap-5 p-5">
           {backCatArray.map((item, idx) => {
             return <span key={idx}   className="cursor-pointer">{item}</span>;
           })}
         </div>
       </div>
-      <div className="w-[45%] h-[300px] ">
+      <div className="w-[50%] h-[300px] p-2 ">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData}>
             <XAxis dataKey="category" fontSize={12} />
