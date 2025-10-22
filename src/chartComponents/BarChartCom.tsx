@@ -5,23 +5,27 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import axios from "axios";
 import { Button } from "@/components/ui/button";
 import type { DrillDataType } from "@/chartComponents/ChartData";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
 
 const BarChartCom = () => {
   const chartRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<am5.Root | null>(null);
+  const mountRef = useRef<boolean>(false)
   const [chartData, setChartData] = useState<DrillDataType[]>([]);
   const [prevData, setPrevData] = useState<DrillDataType[][]>([]);
   const [backCatArray, setBackCatArray] = useState<string[]>([]);
 
-  // Load data once
   useEffect(() => {
+    if(mountRef.current) return 
+    mountRef.current = true
     axios
       .get("/jsonChartData.json")
       .then((res) => setChartData(res.data))
       .catch((err) => console.log(err));
   }, []);
 
-  // Helper: find category and its children recursively
   const findMatchObj = (
     data: DrillDataType[],
     category: string
@@ -44,6 +48,17 @@ const BarChartCom = () => {
     setBackCatArray(backCatArray.slice(0, -1));
   };
 
+  function handleRefresh(){
+    axios
+      .get("/jsonChartData.json")
+      .then((res) => {
+        setChartData(res.data)
+        setBackCatArray([])
+        setPrevData([])
+      })
+      .catch((err) => console.log(err));
+  }
+
   useLayoutEffect(() => {
     if (!chartRef.current || chartData.length === 0) return;
 
@@ -59,10 +74,10 @@ const BarChartCom = () => {
 
     const chart = root.container.children.push(
       am5xy.XYChart.new(root, {
-        // panX: true,
-        // panY: true,
-        // wheelX: "none",
-        // wheelY: "none",
+        panX: false,
+        panY: false,
+        wheelX: "none",
+        wheelY: "none",
         paddingLeft: 0,
         paddingRight: 1,
       })
@@ -106,7 +121,6 @@ const BarChartCom = () => {
         name: "Values",
         xAxis,
         yAxis,
-
         valueYField: "value",
         categoryXField: "category",
         tooltip: am5.Tooltip.new(root, { labelText: "{categoryX}: {valueY}" }),
@@ -122,10 +136,11 @@ const BarChartCom = () => {
     });
 
     series.columns.template.adapters.add("fill", (fill, target) => {
-      return chart.get("colors")!.getIndex(series.columns.indexOf(target));
+      return chart.get("colors")!.getIndex(series.columns.indexOf(target));  // each grid will get different color 
     });
 
     series.columns.template.events.on("click", (ev) => {
+      console.log('ev',ev)
       const dataItem = ev.target.dataItem;
       const dataContext = dataItem?.dataContext as {
         category?: string;
@@ -159,17 +174,27 @@ const BarChartCom = () => {
 
   return (
     <div className="w-full h-screen flex flex-col justify-center items-center">
-      <div className="flex flex-col items-center mb-4">
-        <Button onClick={handleBack} disabled={prevData.length === 0}>
-          Back
-        </Button>
-        <div className="flex gap-3 mt-2">
-          {backCatArray.map((cat, idx) => (
-            <span key={idx} className="text-sm text-blue-600 cursor-pointer">
-              {cat}
-            </span>
-          ))}
+      <div className="flex flex-col items-center mb-4 gap-5">
+        <div className="flex items-center justify-center gap-5">
+            {backCatArray.length !== 0 && <FontAwesomeIcon icon={faBackward} onClick={handleBack} className="cursor-pointer"  />}
+            {backCatArray.length>0 && <FontAwesomeIcon icon={faArrowsRotate} onClick={handleRefresh} className="cursor-pointer"  /> }
+            
         </div>
+        <Breadcrumb>
+          <BreadcrumbList>
+            {backCatArray.map((item, idx) => {
+              return (
+                <span key={idx} className="flex justify-center items-center gap-2">
+                <BreadcrumbItem  className="cursor-pointer">
+                  {item}
+                  
+                </BreadcrumbItem>
+                {idx < backCatArray.length - 1 && <BreadcrumbSeparator />}
+                </span>
+              );
+            })}
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
       <div ref={chartRef} className="w-[30%] h-[400px]" />
     </div>

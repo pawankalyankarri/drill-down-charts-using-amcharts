@@ -1,5 +1,14 @@
-import {type DrillDataType } from "@/chartComponents/ChartData";
+import { type DrillDataType } from "@/chartComponents/ChartData";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
+
 import axios from "axios";
 import { useEffect, useRef, useState } from "react";
 import {
@@ -67,23 +76,56 @@ const BarChartPage = () => {
     if (prevData.length === 0) return;
     console.log("prevcategory", prevData);
     setChartData(prevData[prevData.length - 1]);
-    setBackCatArray(backCatArray.slice(0,-1))
+    setBackCatArray(backCatArray.slice(0, -1));
     setPrevData(prevData.slice(0, -1));
+  }
+
+  function handleBreadCrumbChange(category : string){
+    console.log(category)
+    console.log(chartData)
+    console.log(prevData)
+    console.log(backCatArray)
+    // axios.get("/jsonChartData.json").then(res=>{
+    //   const resobj = findMatchObj(res.data,category)
+    //   console.log('resobj',resobj)
+    //   if (resobj?.children)
+    //     setChartData(resobj.children)
+    // }).catch(err=>console.log(err))
+    
+  }
+  function handleRefresh(){
+    axios.get("/jsonChartData.json").then(res=>{
+      setChartData(res.data)
+      setBackCatArray([])
+      setPrevData([])
+    })
   }
   // console.log(chartData)
   return (
     <div className="w-full h-screen flex justify-around items-center flex-col">
-      <div className=" w-full flex justify-center items-center flex-col ">
-        
-        <Button onClick={handleBack} className="cursor-pointer" disabled = {backCatArray.length === 0}>Back</Button>
-        <span ></span>
-        <div className="flex gap-5 p-5">
-          {backCatArray.map((item, idx) => {
-            return <span key={idx}   className="cursor-pointer">{item}</span>;
-          })}
+      <div className=" w-full flex justify-center items-center flex-col gap-y-2">
+        <div className="flex items-center justify-center gap-5">
+        {backCatArray.length !== 0 && <FontAwesomeIcon icon={faBackward} onClick={handleBack} className="cursor-pointer"  />}
+        {backCatArray.length>0 && <FontAwesomeIcon icon={faArrowsRotate} onClick={handleRefresh} className="cursor-pointer"  /> }
         </div>
+        <span></span>
+        <Breadcrumb>
+          <BreadcrumbList>
+            {backCatArray.map((item, idx) => {
+              return (
+                <span key={idx} className="flex justify-center items-center gap-2">
+                <BreadcrumbItem  className="cursor-pointer" onClick={()=>handleBreadCrumbChange(item)}>
+                  {item}
+                  
+                </BreadcrumbItem>
+                {idx < backCatArray.length - 1 && <BreadcrumbSeparator />}
+                </span>
+              );
+            })}
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
-      <div className="w-[50%] h-[300px] p-2 ">
+      <div className="w-[50%] h-[300px]">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData}>
             <XAxis dataKey="category" fontSize={12} />
