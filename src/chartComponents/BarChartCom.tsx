@@ -59,6 +59,29 @@ const BarChartCom = () => {
       .catch((err) => console.log(err));
   }
 
+  function handleBreadCrumbChange(category : string){
+    // console.log(category)
+    // console.log(chartData)
+    // console.log(prevData)
+    // console.log(backCatArray)
+   
+    axios.get("/jsonChartData.json").then(res=>{
+      const resobj = findMatchObj(res.data,category)
+      console.log('resobj',resobj)
+      // let matchedIdx = prevData.findIndex(item=>item.some(obj=>obj.category === category)) // finding matched object index
+      let matchedIdx = backCatArray.findIndex(item=>item === category) // finding matched object index
+
+      // console.log('matchedIdx',matchedIdx)
+      if (resobj?.children){
+        setChartData(resobj.children)
+        setPrevData(prevData.slice(0,matchedIdx+1))
+        setBackCatArray(backCatArray.slice(0,matchedIdx+1))
+      } 
+      return
+    }).catch(err=>console.log(err))
+    
+  }
+
   useLayoutEffect(() => {
     if (!chartRef.current || chartData.length === 0) return;
 
@@ -87,13 +110,14 @@ const BarChartCom = () => {
     cursor.lineY.set("visible", false);
     cursor.lineX.set("visible", false);
 
-    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30,strokeOpacity : 0.1 });
     xRenderer.labels.template.setAll({
       rotation: -60,
       fontSize: 12,
       centerY: am5.p50,
       centerX: am5.p100,
       paddingRight: 15,
+    
     });
 
     const xAxis = chart.xAxes.push(
@@ -140,7 +164,7 @@ const BarChartCom = () => {
     });
 
     series.columns.template.events.on("click", (ev) => {
-      console.log('ev',ev)
+      // console.log('ev',ev)
       const dataItem = ev.target.dataItem;
       const dataContext = dataItem?.dataContext as {
         category?: string;
@@ -185,7 +209,7 @@ const BarChartCom = () => {
             {backCatArray.map((item, idx) => {
               return (
                 <span key={idx} className="flex justify-center items-center gap-2">
-                <BreadcrumbItem  className="cursor-pointer">
+                <BreadcrumbItem  className="cursor-pointer" onClick={()=>handleBreadCrumbChange(item)}>
                   {item}
                   
                 </BreadcrumbItem>
