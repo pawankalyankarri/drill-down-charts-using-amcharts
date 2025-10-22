@@ -20,6 +20,7 @@ import {
   Tooltip,
   LabelList,
 } from "recharts";
+import { toast } from "sonner";
 
 const BarChartPage = () => {
   // const chartData = barData as DrillDataType[];
@@ -64,6 +65,7 @@ const BarChartPage = () => {
           setPrevData((prev) => [...prev, chartData]);
           setChartData(singleData.children);
         } else {
+          toast("Chart Refreshed")
           setChartData(res.data);
           setBackCatArray([]);
           setPrevData([]);
@@ -81,16 +83,25 @@ const BarChartPage = () => {
   }
 
   function handleBreadCrumbChange(category : string){
-    console.log(category)
-    console.log(chartData)
-    console.log(prevData)
-    console.log(backCatArray)
-    // axios.get("/jsonChartData.json").then(res=>{
-    //   const resobj = findMatchObj(res.data,category)
-    //   console.log('resobj',resobj)
-    //   if (resobj?.children)
-    //     setChartData(resobj.children)
-    // }).catch(err=>console.log(err))
+    // console.log(category)
+    // console.log(chartData)
+    // console.log(prevData)
+    // console.log(backCatArray)
+   
+    axios.get("/jsonChartData.json").then(res=>{
+      const resobj = findMatchObj(res.data,category)
+      console.log('resobj',resobj)
+      // let matchedIdx = prevData.findIndex(item=>item.some(obj=>obj.category === category)) // finding matched object index
+      let matchedIdx = backCatArray.findIndex(item=>item === category) // finding matched object index
+
+      // console.log('matchedIdx',matchedIdx)
+      if (resobj?.children){
+        setChartData(resobj.children)
+        setPrevData(prevData.slice(0,matchedIdx+1))
+        setBackCatArray(backCatArray.slice(0,matchedIdx+1))
+      } 
+      return
+    }).catch(err=>console.log(err))
     
   }
   function handleRefresh(){
