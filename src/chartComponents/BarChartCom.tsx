@@ -8,6 +8,7 @@ import type { DrillDataType } from "@/chartComponents/ChartData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { toast } from "sonner";
 
 const BarChartCom = () => {
   const chartRef = useRef<HTMLDivElement>(null);
@@ -103,6 +104,7 @@ const BarChartCom = () => {
         wheelY: "none",
         paddingLeft: 0,
         paddingRight: 1,
+
       })
     );
 
@@ -117,7 +119,6 @@ const BarChartCom = () => {
       centerY: am5.p50,
       centerX: am5.p100,
       paddingRight: 15,
-    
     });
 
     const xAxis = chart.xAxes.push(
@@ -154,7 +155,7 @@ const BarChartCom = () => {
     series.columns.template.setAll({
       cornerRadiusTL: 6,
       cornerRadiusTR: 6,
-      strokeOpacity: 1,
+      strokeOpacity: 0,
       cursorOverStyle: "pointer",
       width: 25,
     });
@@ -180,6 +181,7 @@ const BarChartCom = () => {
           setChartData(matched.children);
           setBackCatArray((prev) => [...prev, category]);
         } else {
+          toast.info("Chart is Refreshed")
           setChartData(res.data);
           setPrevData([]);
           setBackCatArray([]);
