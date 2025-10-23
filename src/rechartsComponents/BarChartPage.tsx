@@ -21,6 +21,7 @@ import {
   LabelList,
 } from "recharts";
 import { toast } from "sonner";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const BarChartPage = () => {
   // const chartData = barData as DrillDataType[];
@@ -65,7 +66,7 @@ const BarChartPage = () => {
           setPrevData((prev) => [...prev, chartData]);
           setChartData(singleData.children);
         } else {
-          toast("Chart Refreshed")
+          toast.info("Chart Refreshed")
           setChartData(res.data);
           setBackCatArray([]);
           setPrevData([]);
@@ -136,13 +137,13 @@ const BarChartPage = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-      <div className="w-[50%] h-[300px]">
-        <ResponsiveContainer width="100%" height="100%">
+      {chartData.length > 0 ? (
+        <div className="w-[50%] h-[300px]">
+        <ResponsiveContainer width="100%" height="100%" >
           <BarChart data={chartData}>
             <XAxis dataKey="category" fontSize={12} />
             <YAxis />
-            <Tooltip cursor={false} />{" "}
-            {/* removing hover effect use cursor false */}
+            <Tooltip cursor={false} />
             <Bar
               dataKey="value"
               fill="#8884d8"
@@ -156,6 +157,7 @@ const BarChartPage = () => {
           </BarChart>
         </ResponsiveContainer>
       </div>
+      ) : (<Skeleton className="w-[50%] h-[300px] rounded-md animate-pulse" />)}
     </div>
   );
 };

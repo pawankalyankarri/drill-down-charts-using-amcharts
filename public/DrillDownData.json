@@ -1,0 +1,194 @@
+[
+  {
+    "category": "East Zone",
+    "ACTUAL_TMT_SALES": 250000,
+    "TARGET_TMT_SALES": 280000,
+    "ACTUAL_HISTORY_TMT_SALES": 230000,
+    "children": [
+      {
+        "category": "Kolkata Region",
+        "ACTUAL_TMT_SALES": 120000,
+        "TARGET_TMT_SALES": 140000,
+        "ACTUAL_HISTORY_TMT_SALES": 110000,
+        "children": [
+          {
+            "category": "Salt Lake Sales Area",
+            "ACTUAL_TMT_SALES": 60000,
+            "TARGET_TMT_SALES": 70000,
+            "ACTUAL_HISTORY_TMT_SALES": 58000,
+            "children": [
+              {
+                "category": "Cement Category",
+                "ACTUAL_TMT_SALES": 30000,
+                "TARGET_TMT_SALES": 35000,
+                "ACTUAL_HISTORY_TMT_SALES": 29000,
+                "children": [
+                  {
+                    "category": "Cement - 50KG",
+                    "ACTUAL_TMT_SALES": 15000,
+                    "TARGET_TMT_SALES": 18000,
+                    "ACTUAL_HISTORY_TMT_SALES": 14000
+                  },
+                  {
+                    "category": "Cement - 100KG",
+                    "ACTUAL_TMT_SALES": 14000,
+                    "TARGET_TMT_SALES": 17000,
+                    "ACTUAL_HISTORY_TMT_SALES": 15000
+                  }
+                ]
+              },
+              {
+                "category": "Steel Category",
+                "ACTUAL_TMT_SALES": 28000,
+                "TARGET_TMT_SALES": 32000,
+                "ACTUAL_HISTORY_TMT_SALES": 27000,
+                "children": [
+                  {
+                    "category": "Steel Rod 8mm",
+                    "ACTUAL_TMT_SALES": 13000,
+                    "TARGET_TMT_SALES": 15000,
+                    "ACTUAL_HISTORY_TMT_SALES": 12000
+                  },
+                  {
+                    "category": "Steel Rod 10mm",
+                    "ACTUAL_TMT_SALES": 12000,
+                    "TARGET_TMT_SALES": 14000,
+                    "ACTUAL_HISTORY_TMT_SALES": 11000
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "category": "Howrah Sales Area",
+            "ACTUAL_TMT_SALES": 50000,
+            "TARGET_TMT_SALES": 60000,
+            "ACTUAL_HISTORY_TMT_SALES": 47000,
+            "children": [
+              {
+                "category": "Paint Category",
+                "ACTUAL_TMT_SALES": 26000,
+                "TARGET_TMT_SALES": 30000,
+                "ACTUAL_HISTORY_TMT_SALES": 24000,
+                "children": [
+                  {
+                    "category": "Exterior Paint",
+                    "ACTUAL_TMT_SALES": 13000,
+                    "TARGET_TMT_SALES": 15000,
+                    "ACTUAL_HISTORY_TMT_SALES": 12000
+                  },
+                  {
+                    "category": "Interior Paint",
+                    "ACTUAL_TMT_SALES": 11000,
+                    "TARGET_TMT_SALES": 14000,
+                    "ACTUAL_HISTORY_TMT_SALES": 10000
+                  }
+                ]
+              },
+              {
+                "category": "Electrical Category",
+                "ACTUAL_TMT_SALES": 23000,
+                "TARGET_TMT_SALES": 27000,
+                "ACTUAL_HISTORY_TMT_SALES": 22000,
+                "children": [
+                  {
+                    "category": "Wires",
+                    "ACTUAL_TMT_SALES": 11000,
+                    "TARGET_TMT_SALES": 13000,
+                    "ACTUAL_HISTORY_TMT_SALES": 10000
+                  },
+                  {
+                    "category": "Switches",
+                    "ACTUAL_TMT_SALES": 10000,
+                    "TARGET_TMT_SALES": 12000,
+                    "ACTUAL_HISTORY_TMT_SALES": 9500
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Bhubaneswar Region",
+        "ACTUAL_TMT_SALES": 100000,
+        "TARGET_TMT_SALES": 120000,
+        "ACTUAL_HISTORY_TMT_SALES": 95000,
+        "children": [
+          {
+            "category": "Cuttack Sales Area",
+            "ACTUAL_TMT_SALES": 48000,
+            "TARGET_TMT_SALES": 52000,
+            "ACTUAL_HISTORY_TMT_SALES": 45000,
+            "children": [
+              {
+                "category": "Tiles Category",
+                "ACTUAL_TMT_SALES": 24000,
+                "TARGET_TMT_SALES": 27000,
+                "ACTUAL_HISTORY_TMT_SALES": 22000,
+                "children": [
+                  {
+                    "category": "Floor Tiles",
+                    "ACTUAL_TMT_SALES": 12000,
+                    "TARGET_TMT_SALES": 14000,
+                    "ACTUAL_HISTORY_TMT_SALES": 11000
+                  },
+                  {
+                    "category": "Wall Tiles",
+                    "ACTUAL_TMT_SALES": 10000,
+                    "TARGET_TMT_SALES": 13000,
+                    "ACTUAL_HISTORY_TMT_SALES": 9500
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "West Zone",
+    "ACTUAL_TMT_SALES": 200000,
+    "TARGET_TMT_SALES": 230000,
+    "ACTUAL_HISTORY_TMT_SALES": 190000,
+    "children": [
+      {
+        "category": "Mumbai Region",
+        "ACTUAL_TMT_SALES": 120000,
+        "TARGET_TMT_SALES": 130000,
+        "ACTUAL_HISTORY_TMT_SALES": 110000,
+        "children": [
+          {
+            "category": "Andheri Sales Area",
+            "ACTUAL_TMT_SALES": 60000,
+            "TARGET_TMT_SALES": 65000,
+            "ACTUAL_HISTORY_TMT_SALES": 58000,
+            "children": [
+              {
+                "category": "Hardware Category",
+                "ACTUAL_TMT_SALES": 30000,
+                "TARGET_TMT_SALES": 35000,
+                "ACTUAL_HISTORY_TMT_SALES": 28000,
+                "children": [
+                  {
+                    "category": "Bolts",
+                    "ACTUAL_TMT_SALES": 15000,
+                    "TARGET_TMT_SALES": 17000,
+                    "ACTUAL_HISTORY_TMT_SALES": 14000
+                  },
+                  {
+                    "category": "Nuts",
+                    "ACTUAL_TMT_SALES": 13000,
+                    "TARGET_TMT_SALES": 16000,
+                    "ACTUAL_HISTORY_TMT_SALES": 12000
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
