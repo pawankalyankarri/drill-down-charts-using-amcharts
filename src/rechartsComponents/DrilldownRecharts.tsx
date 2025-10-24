@@ -1,10 +1,12 @@
 import type { DrillDataType } from "@/amcharts/DrillDownamChart";
+import "../index.css"
 import {
   Breadcrumb,
   BreadcrumbItem,
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
+import { Card } from "@/components/ui/card";
 import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from "axios";
@@ -52,9 +54,9 @@ const DrilldownRecharts = () => {
       .then((res) => {
         let resobj = findMatchObj(res.data, d.category);
         if (resobj?.children) {
-          setChartData(resobj.children);
           setPrevCats((prev) => [...prev, d.category]);
           setBackArray((prev) => [...prev, chartData]);
+          setChartData(resobj.children);
         } else {
           toast.info("chart is refreshed");
           setChartData(res.data);
@@ -64,24 +66,43 @@ const DrilldownRecharts = () => {
       })
       .catch((err) => console.log(err));
     // console.log(d)
-  }, []);
+  }, [chartData,backArray,prevCats]);
+
+  const handleRefresh = () => {
+    axios.get("/DrillDownData.json").then(res=>{
+      setChartData(res.data)
+      setBackArray([])
+      setPrevCats([])
+    }).catch(err=>console.log(err))
+  }
+
+  const handleBack = () => {
+    setChartData(backArray[backArray.length-1])
+    setBackArray(backArray.slice(0,-1))
+    setPrevCats(prevCats.slice(0,-1))
+  }
+
+  const handleBreadCrumbChange = (category:string) =>{
+    console.log(category)
+  }
+
 
   return (
-    <div className=" w-full min-h-screen flex flex-col gap-5 justify-around items-center">
+    <div className=" w-full min-h-screen flex flex-col gap-5 justify-around items-center overflow-hidden">
       <div className="w-full h-full">
         <div className="w-full h-full">
           <div className="flex items-center justify-end pr-40 gap-5">
             {backArray.length !== 0 && (
               <FontAwesomeIcon
                 icon={faBackward}
-                // onClick={handleBack}
+                onClick={handleBack}
                 className="cursor-pointer p-2"
               />
             )}
             {backArray.length > 0 && (
               <FontAwesomeIcon
                 icon={faArrowsRotate}
-                // onClick={handleRefresh}
+                onClick={handleRefresh}
                 className="cursor-pointer p-2"
               />
             )}
@@ -98,7 +119,7 @@ const DrilldownRecharts = () => {
                   >
                     <BreadcrumbItem
                       className="cursor-pointer"
-                      // onClick={() => handleBreadCrumbChange(item)}
+                      onClick={() => handleBreadCrumbChange(item)}
                     >
                       {item}
                     </BreadcrumbItem>
@@ -110,9 +131,9 @@ const DrilldownRecharts = () => {
           </Breadcrumb>
         </div>
       </div>
-      <div className="w-[40%] h-[300px] ">
+      <div className="w-[50%] h-[300px] p-2 focus:outline-none ">
         <ResponsiveContainer className="w-full h-full">
-          <BarChart data={chartData} margin={{ top: 20 }}>
+          <BarChart data={chartData} margin={{ top: 20 }} className="recharts-bar-rectangle">
             <XAxis dataKey="category" fontSize={12} />
             <YAxis fontSize={12} />
             <Tooltip cursor={false} />
