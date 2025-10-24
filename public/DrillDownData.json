@@ -142,6 +142,34 @@
                 ]
               }
             ]
+          },
+          {
+            "category": "Puri Sales Area",
+            "ACTUAL_TMT_SALES": 42000,
+            "TARGET_TMT_SALES": 48000,
+            "ACTUAL_HISTORY_TMT_SALES": 40000,
+            "children": [
+              {
+                "category": "Bricks Category",
+                "ACTUAL_TMT_SALES": 20000,
+                "TARGET_TMT_SALES": 22000,
+                "ACTUAL_HISTORY_TMT_SALES": 18000,
+                "children": [
+                  {
+                    "category": "Clay Bricks",
+                    "ACTUAL_TMT_SALES": 10000,
+                    "TARGET_TMT_SALES": 12000,
+                    "ACTUAL_HISTORY_TMT_SALES": 9500
+                  },
+                  {
+                    "category": "Fly Ash Bricks",
+                    "ACTUAL_TMT_SALES": 9000,
+                    "TARGET_TMT_SALES": 10000,
+                    "ACTUAL_HISTORY_TMT_SALES": 8500
+                  }
+                ]
+              }
+            ]
           }
         ]
       }
@@ -182,6 +210,186 @@
                     "ACTUAL_TMT_SALES": 13000,
                     "TARGET_TMT_SALES": 16000,
                     "ACTUAL_HISTORY_TMT_SALES": 12000
+                  }
+                ]
+              },
+              {
+                "category": "Plumbing Category",
+                "ACTUAL_TMT_SALES": 25000,
+                "TARGET_TMT_SALES": 28000,
+                "ACTUAL_HISTORY_TMT_SALES": 24000,
+                "children": [
+                  {
+                    "category": "Pipes",
+                    "ACTUAL_TMT_SALES": 13000,
+                    "TARGET_TMT_SALES": 15000,
+                    "ACTUAL_HISTORY_TMT_SALES": 12000
+                  },
+                  {
+                    "category": "Fittings",
+                    "ACTUAL_TMT_SALES": 11000,
+                    "TARGET_TMT_SALES": 13000,
+                    "ACTUAL_HISTORY_TMT_SALES": 10000
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Pune Region",
+        "ACTUAL_TMT_SALES": 70000,
+        "TARGET_TMT_SALES": 90000,
+        "ACTUAL_HISTORY_TMT_SALES": 65000,
+        "children": [
+          {
+            "category": "Shivaji Nagar Sales Area",
+            "ACTUAL_TMT_SALES": 35000,
+            "TARGET_TMT_SALES": 45000,
+            "ACTUAL_HISTORY_TMT_SALES": 32000,
+            "children": [
+              {
+                "category": "Glass Category",
+                "ACTUAL_TMT_SALES": 18000,
+                "TARGET_TMT_SALES": 20000,
+                "ACTUAL_HISTORY_TMT_SALES": 17000,
+                "children": [
+                  {
+                    "category": "Window Glass",
+                    "ACTUAL_TMT_SALES": 9000,
+                    "TARGET_TMT_SALES": 11000,
+                    "ACTUAL_HISTORY_TMT_SALES": 8500
+                  },
+                  {
+                    "category": "Mirror Glass",
+                    "ACTUAL_TMT_SALES": 8500,
+                    "TARGET_TMT_SALES": 9500,
+                    "ACTUAL_HISTORY_TMT_SALES": 8000
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "North Zone",
+    "ACTUAL_TMT_SALES": 270000,
+    "TARGET_TMT_SALES": 300000,
+    "ACTUAL_HISTORY_TMT_SALES": 250000,
+    "children": [
+      {
+        "category": "Delhi Region",
+        "ACTUAL_TMT_SALES": 130000,
+        "TARGET_TMT_SALES": 150000,
+        "ACTUAL_HISTORY_TMT_SALES": 120000,
+        "children": [
+          {
+            "category": "Rohini Sales Area",
+            "ACTUAL_TMT_SALES": 60000,
+            "TARGET_TMT_SALES": 70000,
+            "ACTUAL_HISTORY_TMT_SALES": 55000,
+            "children": [
+              {
+                "category": "Wood Category",
+                "ACTUAL_TMT_SALES": 28000,
+                "TARGET_TMT_SALES": 32000,
+                "ACTUAL_HISTORY_TMT_SALES": 26000,
+                "children": [
+                  {
+                    "category": "Plywood",
+                    "ACTUAL_TMT_SALES": 15000,
+                    "TARGET_TMT_SALES": 18000,
+                    "ACTUAL_HISTORY_TMT_SALES": 14000
+                  },
+                  {
+                    "category": "Boards",
+                    "ACTUAL_TMT_SALES": 12000,
+                    "TARGET_TMT_SALES": 14000,
+                    "ACTUAL_HISTORY_TMT_SALES": 11000
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "category": "South Zone",
+    "ACTUAL_TMT_SALES": 300000,
+    "TARGET_TMT_SALES": 330000,
+    "ACTUAL_HISTORY_TMT_SALES": 280000,
+    "children": [
+      {
+        "category": "Chennai Region",
+        "ACTUAL_TMT_SALES": 150000,
+        "TARGET_TMT_SALES": 160000,
+        "ACTUAL_HISTORY_TMT_SALES": 140000,
+        "children": [
+          {
+            "category": "T Nagar Sales Area",
+            "ACTUAL_TMT_SALES": 80000,
+            "TARGET_TMT_SALES": 90000,
+            "ACTUAL_HISTORY_TMT_SALES": 75000,
+            "children": [
+              {
+                "category": "Ceramics Category",
+                "ACTUAL_TMT_SALES": 40000,
+                "TARGET_TMT_SALES": 45000,
+                "ACTUAL_HISTORY_TMT_SALES": 37000,
+                "children": [
+                  {
+                    "category": "Kitchen Ceramics",
+                    "ACTUAL_TMT_SALES": 20000,
+                    "TARGET_TMT_SALES": 23000,
+                    "ACTUAL_HISTORY_TMT_SALES": 18000
+                  },
+                  {
+                    "category": "Bathroom Ceramics",
+                    "ACTUAL_TMT_SALES": 18000,
+                    "TARGET_TMT_SALES": 20000,
+                    "ACTUAL_HISTORY_TMT_SALES": 17000
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "category": "Hyderabad Region",
+        "ACTUAL_TMT_SALES": 140000,
+        "TARGET_TMT_SALES": 160000,
+        "ACTUAL_HISTORY_TMT_SALES": 130000,
+        "children": [
+          {
+            "category": "Madhapur Sales Area",
+            "ACTUAL_TMT_SALES": 70000,
+            "TARGET_TMT_SALES": 80000,
+            "ACTUAL_HISTORY_TMT_SALES": 65000,
+            "children": [
+              {
+                "category": "Electronics Category",
+                "ACTUAL_TMT_SALES": 35000,
+                "TARGET_TMT_SALES": 40000,
+                "ACTUAL_HISTORY_TMT_SALES": 32000,
+                "children": [
+                  {
+                    "category": "Laptops",
+                    "ACTUAL_TMT_SALES": 18000,
+                    "TARGET_TMT_SALES": 20000,
+                    "ACTUAL_HISTORY_TMT_SALES": 17000
+                  },
+                  {
+                    "category": "Mobiles",
+                    "ACTUAL_TMT_SALES": 16000,
+                    "TARGET_TMT_SALES": 19000,
+                    "ACTUAL_HISTORY_TMT_SALES": 15000
                   }
                 ]
               }

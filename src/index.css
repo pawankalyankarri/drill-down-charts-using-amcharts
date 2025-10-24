@@ -1,10 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@layer utilities {
-  .no-bar-outline rect:focus {
-    outline: none;
-  }
+.recharts-bar-rectangle:focus {
+  outline: none;
 }
 @custom-variant dark (&:is(.dark *));
 

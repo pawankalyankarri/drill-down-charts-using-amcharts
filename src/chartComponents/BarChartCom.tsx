@@ -3,7 +3,6 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import axios from "axios";
-import { Button } from "@/components/ui/button";
 import type { DrillDataType } from "@/chartComponents/ChartData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
@@ -14,11 +13,10 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { toast } from "sonner";
-import { Skeleton } from "@/components/ui/skeleton";
-
 const BarChartCom = () => {
   const chartRef = useRef<HTMLDivElement>(null);
   const rootRef = useRef<am5.Root | null>(null);
+  const [isloading,setIsloading] = useState<boolean>(false)
   const mountRef = useRef<boolean>(false);
   const [chartData, setChartData] = useState<DrillDataType[]>([]);
   const [prevData, setPrevData] = useState<DrillDataType[][]>([]);
@@ -170,7 +168,7 @@ const BarChartCom = () => {
       width: 25,
     });
 
-    series.columns.template.adapters.add("fill", (fill, target) => {
+    series.columns.template.adapters.add("fill", (_,target) => {
       return chart.get("colors")!.getIndex(series.columns.indexOf(target)); // each grid will get different color
     });
 
@@ -248,7 +246,7 @@ const BarChartCom = () => {
           </BreadcrumbList>
         </Breadcrumb>
       </div>
-
+        
       <div ref={chartRef} className="w-[30%] h-[400px]" />
     </div>
   );

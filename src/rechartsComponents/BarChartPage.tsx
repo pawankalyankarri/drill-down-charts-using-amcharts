@@ -5,7 +5,6 @@ import {
   BreadcrumbList,
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
-import { Button } from "@/components/ui/button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
 
@@ -65,6 +64,7 @@ const BarChartPage = () => {
           setBackCatArray((prev) => [...prev, singleData.category]);
           setPrevData((prev) => [...prev, chartData]);
           setChartData(singleData.children);
+          console.log(backCatArray);
         } else {
           toast.info("Chart Refreshed");
           setChartData(res.data);
@@ -84,11 +84,6 @@ const BarChartPage = () => {
   }
 
   function handleBreadCrumbChange(category: string) {
-    // console.log(category)
-    // console.log(chartData)
-    // console.log(prevData)
-    // console.log(backCatArray)
-
     axios
       .get("/jsonChartData.json")
       .then((res) => {
@@ -96,7 +91,6 @@ const BarChartPage = () => {
         console.log("resobj", resobj);
         // let matchedIdx = prevData.findIndex(item=>item.some(obj=>obj.category === category)) // finding matched object index
         let matchedIdx = backCatArray.findIndex((item) => item === category); // finding matched object index
-
         // console.log('matchedIdx',matchedIdx)
         if (resobj?.children) {
           setChartData(resobj.children);
@@ -159,7 +153,7 @@ const BarChartPage = () => {
       {chartData.length > 0 ? (
         <div className="w-[50%] h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
-            <BarChart data={chartData} margin={{ top: 20 }}>
+            <BarChart data={chartData} margin={{ top: 20 }} >
               <XAxis dataKey="category" fontSize={12} />
               <YAxis />
               <Tooltip cursor={false} />
@@ -170,6 +164,7 @@ const BarChartPage = () => {
                 className="cursor-pointer"
                 maxBarSize={40}
                 radius={[6, 6, 0, 0]}
+                
               >
                 <LabelList dataKey="value" position="top" fontSize={12} />
               </Bar>
