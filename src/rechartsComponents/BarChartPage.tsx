@@ -6,7 +6,7 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb";
 import { Button } from "@/components/ui/button";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsRotate, faBackward } from "@fortawesome/free-solid-svg-icons";
 
 import axios from "axios";
@@ -66,7 +66,7 @@ const BarChartPage = () => {
           setPrevData((prev) => [...prev, chartData]);
           setChartData(singleData.children);
         } else {
-          toast.info("Chart Refreshed")
+          toast.info("Chart Refreshed");
           setChartData(res.data);
           setBackCatArray([]);
           setPrevData([]);
@@ -77,60 +77,79 @@ const BarChartPage = () => {
 
   function handleBack() {
     if (prevData.length === 0) return;
-    console.log("prevcategory", prevData);
+    // console.log("prevcategory", prevData);
     setChartData(prevData[prevData.length - 1]);
     setBackCatArray(backCatArray.slice(0, -1));
     setPrevData(prevData.slice(0, -1));
   }
 
-  function handleBreadCrumbChange(category : string){
+  function handleBreadCrumbChange(category: string) {
     // console.log(category)
     // console.log(chartData)
     // console.log(prevData)
     // console.log(backCatArray)
-   
-    axios.get("/jsonChartData.json").then(res=>{
-      const resobj = findMatchObj(res.data,category)
-      console.log('resobj',resobj)
-      // let matchedIdx = prevData.findIndex(item=>item.some(obj=>obj.category === category)) // finding matched object index
-      let matchedIdx = backCatArray.findIndex(item=>item === category) // finding matched object index
 
-      // console.log('matchedIdx',matchedIdx)
-      if (resobj?.children){
-        setChartData(resobj.children)
-        setPrevData(prevData.slice(0,matchedIdx+1))
-        setBackCatArray(backCatArray.slice(0,matchedIdx+1))
-      } 
-      return
-    }).catch(err=>console.log(err))
-    
+    axios
+      .get("/jsonChartData.json")
+      .then((res) => {
+        const resobj = findMatchObj(res.data, category);
+        console.log("resobj", resobj);
+        // let matchedIdx = prevData.findIndex(item=>item.some(obj=>obj.category === category)) // finding matched object index
+        let matchedIdx = backCatArray.findIndex((item) => item === category); // finding matched object index
+
+        // console.log('matchedIdx',matchedIdx)
+        if (resobj?.children) {
+          setChartData(resobj.children);
+          setPrevData(prevData.slice(0, matchedIdx + 1));
+          setBackCatArray(backCatArray.slice(0, matchedIdx + 1));
+        }
+        return;
+      })
+      .catch((err) => console.log(err));
   }
-  function handleRefresh(){
-    axios.get("/jsonChartData.json").then(res=>{
-      setChartData(res.data)
-      setBackCatArray([])
-      setPrevData([])
-    })
+  function handleRefresh() {
+    axios.get("/jsonChartData.json").then((res) => {
+      setChartData(res.data);
+      setBackCatArray([]);
+      setPrevData([]);
+    });
   }
   // console.log(chartData)
   return (
     <div className="w-full h-screen flex justify-around items-center flex-col">
       <div className=" w-full flex justify-center items-center flex-col gap-y-2">
         <div className="flex items-center justify-center gap-5">
-        {backCatArray.length !== 0 && <FontAwesomeIcon icon={faBackward} onClick={handleBack} className="cursor-pointer"  />}
-        {backCatArray.length>0 && <FontAwesomeIcon icon={faArrowsRotate} onClick={handleRefresh} className="cursor-pointer"  /> }
+          {backCatArray.length !== 0 && (
+            <FontAwesomeIcon
+              icon={faBackward}
+              onClick={handleBack}
+              className="cursor-pointer p-2"
+            />
+          )}
+          {backCatArray.length > 0 && (
+            <FontAwesomeIcon
+              icon={faArrowsRotate}
+              onClick={handleRefresh}
+              className="cursor-pointer p-2"
+            />
+          )}
         </div>
         <span></span>
         <Breadcrumb>
           <BreadcrumbList>
             {backCatArray.map((item, idx) => {
               return (
-                <span key={idx} className="flex justify-center items-center gap-2">
-                <BreadcrumbItem  className="cursor-pointer" onClick={()=>handleBreadCrumbChange(item)}>
-                  {item}
-                  
-                </BreadcrumbItem>
-                {idx < backCatArray.length - 1 && <BreadcrumbSeparator />}
+                <span
+                  key={idx}
+                  className="flex justify-center items-center gap-2"
+                >
+                  <BreadcrumbItem
+                    className="cursor-pointer"
+                    onClick={() => handleBreadCrumbChange(item)}
+                  >
+                    {item}
+                  </BreadcrumbItem>
+                  {idx < backCatArray.length - 1 && <BreadcrumbSeparator />}
                 </span>
               );
             })}
@@ -139,25 +158,27 @@ const BarChartPage = () => {
       </div>
       {chartData.length > 0 ? (
         <div className="w-[50%] h-[300px]">
-        <ResponsiveContainer width="100%" height="100%" >
-          <BarChart data={chartData}>
-            <XAxis dataKey="category" fontSize={12} />
-            <YAxis />
-            <Tooltip cursor={false} />
-            <Bar
-              dataKey="value"
-              fill="#8884d8"
-              onClick={handleClick}
-              className="cursor-pointer"
-              maxBarSize={40}
-              radius={[6, 6, 0, 0]}
-            >
-              <LabelList dataKey="value" position="top" fontSize={12} />
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
-      </div>
-      ) : (<Skeleton className="w-[50%] h-[300px] rounded-md animate-pulse" />)}
+          <ResponsiveContainer width="100%" height="100%">
+            <BarChart data={chartData} margin={{ top: 20 }}>
+              <XAxis dataKey="category" fontSize={12} />
+              <YAxis />
+              <Tooltip cursor={false} />
+              <Bar
+                dataKey="value"
+                fill="#8884d8"
+                onClick={handleClick}
+                className="cursor-pointer"
+                maxBarSize={40}
+                radius={[6, 6, 0, 0]}
+              >
+                <LabelList dataKey="value" position="top" fontSize={12} />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
+      ) : (
+        <Skeleton className="w-[50%] h-[300px] rounded-md animate-pulse" />
+      )}
     </div>
   );
 };
